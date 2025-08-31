@@ -15,7 +15,7 @@ interface Product {
 }
 
 export const clientLoader = async ({params}: Route.ClientLoaderArgs) : Promise<Product> => {
-       const url = `${API_BASE_URL}/products/0`;
+       const url = `${API_BASE_URL}/products/1`;
         console.log(url)
         const res = await fetch(url);
         const forecast = await res.json();
