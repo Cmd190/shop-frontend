@@ -1,15 +1,18 @@
 import {
+  BrowserRouter,
   isRouteErrorResponse,
   Links,
   Meta,
   NavLink,
   Outlet,
+  Routes,
   Scripts,
   ScrollRestoration,
 } from "react-router";
 
 import type { Route } from "./+types/root";
 import "./app.css";
+import Navbar from "./components/Navbar";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -45,10 +48,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
     <>
-      <nav>
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/products">Product Demo </NavLink>
-      </nav>
+      
+        <Navbar />
+      {/* <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes> */}
+      
       <Outlet />
     </>
   ) 
