@@ -12,7 +12,8 @@ import {
 
 import type { Route } from "./+types/root";
 import "./app.css";
-import Navbar from "./components/Navbar";
+import Navbar, { type NavItem } from "./components/Navbar";
+import { RouteName, RoutePaths } from "./routes";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -45,18 +46,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
+const navItems : NavItem[] = [
+  {name: "Milk Chocolate", path: RoutePaths(RouteName.MilkChocolate)},
+  {name: "Dark Chocolate", path: RoutePaths(RouteName.DarkChocolate)},
+  {name: "White Chocolate", path: RoutePaths(RouteName.WhiteChocolate)}
+]
+
 export default function App() {
   return (
     <>
-      
-        <Navbar />
-      {/* <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes> */}
-      
+      <Navbar navItems={navItems}  />
       <Outlet />
     </>
   ) 

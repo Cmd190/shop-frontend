@@ -2,18 +2,16 @@ import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 
-type NavItem = {
+export type NavItem = {
   name: string;
   path: string;
 };
 
-const navItems : NavItem[] = [
-  {name: "Home", path: "/"},
-  {name: "About", path: "/about"},
-  {name: "Contact", path: "/contact"}
-]
+interface NavItemsProps {
+  navItems: NavItem[]
+}
 
-export default function Navbar() {
+export default function Navbar({navItems}: NavItemsProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
