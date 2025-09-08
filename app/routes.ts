@@ -28,5 +28,6 @@ export default [
     route("/products", "routes/ProductDemo.tsx"),
     route("/milk-chocolate", "routes/MilkChocolate.tsx"),
     route("/dark-chocolate", "routes/DarkChocolate.tsx"),
-    route("/white-chocolate", "routes/WhiteChocolate.tsx")
+    route("/white-chocolate", "routes/WhiteChocolate.tsx"),
+    route("*", "routes/NoMatch.tsx")
 ] satisfies RouteConfig;
