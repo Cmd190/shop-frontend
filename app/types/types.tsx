@@ -8,5 +8,6 @@ export interface Product {
   discount: number,
   manufacturer: string,
   shipDuration: number,
-  stockCount: number
+  stockCount: number,
+  productLink: string
 }

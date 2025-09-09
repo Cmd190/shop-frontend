@@ -3,6 +3,7 @@ import { API_BASE_URL } from '~/ApiConfig';
 import type { Product } from '../types/types';
 import type { Route } from './+types/MilkChocolate';
 import { ProductCard } from '../components/ProductCard';
+import { NavLink } from 'react-router';
 
 export const clientLoader = async ({params}: Route.ClientLoaderArgs) : Promise<Product[] | null> => {
 
@@ -23,6 +24,7 @@ export const clientLoader = async ({params}: Route.ClientLoaderArgs) : Promise<P
  const MilkChocolate = ({loaderData} : Route.ComponentProps ) => {
  
   // TODO error handling for data fetching with react router
+  // TODO introduce link-nanme colum in db
   const [error, setError] = useState<string>("")
   return (
     <div className='p-8 font-sans bg-white dark:bg-white min-h-screen'>
@@ -32,7 +34,10 @@ export const clientLoader = async ({params}: Route.ClientLoaderArgs) : Promise<P
        ? <p>An error has occured while loading</p>
        :   <ul className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
            {loaderData && loaderData.map(p => (
-            <ProductCard key={p.id} p={p}/>
+            <NavLink key={p.id} to={`/products/${p.productLink}`}>
+              <ProductCard p={p}/>
+
+            </NavLink> 
            ))}
        </ul>
        }
