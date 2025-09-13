@@ -1,14 +1,14 @@
 import React from 'react'
-import { API_BASE_URL } from '~/ApiConfig';
+import { API_BASE_URL, PRODUCT_API } from '~/ApiConfig';
 import type { Product } from '~/types/types';
 import type { Route } from './+types/ProductDetail';
-import { ProductCard } from '~/components/ProductCard';
+import { ProductDetailCard } from '~/components/ProductDetailCard';
 
 
 export const clientLoader = async ({params}: Route.ClientLoaderArgs) : Promise<Product | null> => {
 
   try {
-      const url = `${API_BASE_URL}/products/${params.productLink}`;
+      const url = `${API_BASE_URL}/${PRODUCT_API}?name=${params.productLink}`;
       const res = await fetch(url);
       const products = await res.json();
       return products as Promise<Product>;
@@ -27,15 +27,10 @@ export const ProductDetail = ({loaderData} : Route.ComponentProps ) =>   {
           loaderData == null 
           ? <p>Product not found</p>
           : 
-            <>
-            <ProductCard p={loaderData}/> 
-            <p className='text-gray-700'>{loaderData.description}</p>
-            </>
-            
-          
-
-          
+            <ProductDetailCard p={loaderData} /> 
         } 
     </div>
   )
 }
+
+export default ProductDetail
