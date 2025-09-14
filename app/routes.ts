@@ -22,11 +22,11 @@ export const RoutePaths = (name:RouteName) : string =>  {
     }
 }
    
+// TODO change routing to look like here https://dev.to/vikram-boominathan/react-router-routes-loaders-and-errors-1nee
 
 export default [
     index("routes/home.tsx"),
     route("/products", "routes/ProductDemo.tsx"),
-    // TODO why does this not work?
     route("/products/:productLink", "routes/ProductDetail.tsx"),
     route("/milk-chocolate", "routes/MilkChocolate.tsx"),
     route("/dark-chocolate", "routes/DarkChocolate.tsx"),
