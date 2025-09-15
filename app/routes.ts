@@ -1,4 +1,6 @@
 import { type RouteConfig, index, route } from "@react-router/dev/routes";
+import { createRoutesFromElements } from "react-router";
+import { createBrowserRouter, Route } from "react-router-dom";
 
 export enum RouteName{
     Home,
@@ -21,12 +23,14 @@ export const RoutePaths = (name:RouteName) : string =>  {
         return "/home"
     }
 }
+
    
-// TODO change routing to look like here https://dev.to/vikram-boominathan/react-router-routes-loaders-and-errors-1nee
+
 
 export default [
     index("routes/home.tsx"),
     route("/products", "routes/ProductDemo.tsx"),
+    route("/products/search", "routes/Search.tsx"),
     route("/products/:productLink", "routes/ProductDetail.tsx"),
     route("/milk-chocolate", "routes/MilkChocolate.tsx"),
     route("/dark-chocolate", "routes/DarkChocolate.tsx"),

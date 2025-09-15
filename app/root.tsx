@@ -5,7 +5,7 @@ import {
   Meta,
   NavLink,
   Outlet,
-  Routes,
+  Route as ,
   Scripts,
   ScrollRestoration,
 } from "react-router";
@@ -14,6 +14,8 @@ import type { Route } from "./+types/root";
 import "./app.css";
 import Navbar, { type NavItem } from "./components/Navbar";
 import { RouteName, RoutePaths } from "./routes";
+import { createBrowserRouter } from "react-router-dom";
+import { createRoutesFromElements } from "react-router";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -45,6 +47,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
     </html>
   );
 }
+
+
 
 const navItems : NavItem[] = [
   {name: "Milk Chocolate", path: RoutePaths(RouteName.MilkChocolate)},

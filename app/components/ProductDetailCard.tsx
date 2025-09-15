@@ -1,8 +1,30 @@
 import React from "react";
+import { isRouteErrorResponse, useRouteError } from "react-router-dom";
 import type { Product } from "~/types/types";
 
 interface ProductDetailProps {
   p: Product;
+}
+
+
+export function ErrorBoundary() {
+  const error = useRouteError();
+
+  if (isRouteErrorResponse(error)) {
+    return (
+      <div>
+        <h2>{error.status} {error.statusText}</h2>
+        <p>{error.data}</p>
+      </div>
+    );
+  }
+
+  return (
+    <div>
+      <h2>Something went wrong</h2>
+      <pre>{(error as Error)?.message}</pre>
+    </div>
+  );
 }
 
 export const ProductDetailCard: React.FC<ProductDetailProps> = ({ p }) => {
