@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import Searchbar from "./Searchbar";
 
 export type NavItem = {
   name: string;
@@ -8,42 +9,47 @@ export type NavItem = {
 };
 
 interface NavItemsProps {
-  navItems: NavItem[]
+  navItems: NavItem[];
 }
 
-export default function Navbar({navItems}: NavItemsProps) {
+export default function Navbar({ navItems }: NavItemsProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <nav className="bg-white shadow-md px-6 py-1">
-      
-      <div className="flex items-center justify-between">
-        <Link to="/" className="flex items-center space-x-2 mr-6">
-          <img
-            src="/logo_transparent.png"
-            alt="chocolate with heart"
-            className="max-h-10 w-auto md:max-h-12 lg:max-h-24 transition-all duration-200"
-          />
-          <span className="text-xl md:text-2xl font-bold text-orange-900">
-            Your chocolate shop
-          </span>
-        </Link>
-        <div className="hidden md:flex space-x-6">
-          {navItems.map((item) => (
-            <NavLink
-              key={item.path}
-              to={item.path}
-              className={({ isActive }) =>
-                `text-lg font-medium transition-colors ${
-                  isActive
-                    ? "text-blue-600"
-                    : "text-gray-600 hover:text-blue-500"
-                }`
-              }
-            >
-              {item.name}
-            </NavLink>
-          ))}
+      <div className="flex flex-col">
+        <div className="flex flex-row">
+        <Link to="/" className="flex items-center space-x-2  mr-6">
+            <img
+              src="/logo_transparent.png"
+              alt="chocolate with heart"
+              className="max-h-10 w-auto md:max-h-12 lg:max-h-24 transition-all duration-200"
+            />
+            <span className="text-xl md:text-2xl font-bold text-orange-900">
+              Your chocolate shop
+            </span>
+          </Link>
+          <Searchbar/>
+          </div>
+        <div className="flex items-center justify-between">
+          
+          <div className="hidden md:flex space-x-6">
+            {navItems.map((item) => (
+              <NavLink
+                key={item.path}
+                to={item.path}
+                className={({ isActive }) =>
+                  `text-lg font-medium transition-colors ${
+                    isActive
+                      ? "text-blue-600"
+                      : "text-gray-600 hover:text-blue-500"
+                  }`
+                }
+              >
+                {item.name}
+              </NavLink>
+            ))}
+          </div>
         </div>
 
         <button

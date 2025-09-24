@@ -7,22 +7,21 @@ export enum RouteName{
     MilkChocolate,
     DarkChocolate,
     WhiteChocolate,
-    Products
+    Products,
+    Search
 }
 
-export const RoutePaths = (name:RouteName) : string =>  {
-    if(name === RouteName.MilkChocolate){
-        return "/milk-chocolate"
-    } else if(name === RouteName.DarkChocolate){
-        return "/dark-chocolate"
-    } else if(name === RouteName.WhiteChocolate){
-        return "/white-chocolate"
-    } else if(name === RouteName.Products){
-        return "/products"
-    } else {
-        return "/home"
-    }
-}
+ export const getRoute = (name: RouteName) : string => RoutePaths[name] ?? RoutePaths[RouteName.Home]
+
+ const RoutePaths: Record<RouteName, string> = {
+  [RouteName.MilkChocolate]: "/milk-chocolate",
+  [RouteName.DarkChocolate]: "/dark-chocolate",
+  [RouteName.WhiteChocolate]: "/white-chocolate",
+  [RouteName.Products]: "/products",
+  [RouteName.Search]: "/products/search",
+  [RouteName.Home]: "/home", 
+};
+
 
    
 
