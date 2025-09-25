@@ -31,8 +31,15 @@ type searchProductsParams = {
 export const searchProducts = async (searchParams: searchProductsParams): Promise<Product[] | null> => {
   const {pageSize, pageNumber, productName, category, manufacturer, maxPrice, minPrice} = searchParams
   try {
-    const url = `${API_BASE_URL}/${API_PRODUCT}/all?PageNumber=${pageNumber}&PageSize=${pageSize}&ProductName=${productName}
-    &MinPrize=${minPrice}${productName === null ? '' : "p"}`;
+    const url = `${API_BASE_URL}/${API_PRODUCT}/all?` +
+    `PageNumber=${pageNumber}` +
+    `&PageSize=${pageSize}` +
+    `&MinPrize=${minPrice}` +
+    (productName ? `&ProductName=${encodeURIComponent(productName)}` : '') +
+    (maxPrice ? `&MaxPrize=${minPrice}` : '' ) +
+    (category ? `&Category=${category}` : '') +
+    (manufacturer ? `&Manufacturer=${manufacturer}` : '') 
+    
     const res = await fetch(url);
     const products = await res.json();
     return products as Promise<Product[]>;
