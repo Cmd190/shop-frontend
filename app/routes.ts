@@ -11,7 +11,8 @@ export enum RouteName{
     Search
 }
 
- export const getRoute = (name: RouteName) : string => RoutePaths[name] ?? RoutePaths[RouteName.Home]
+export const hostUrl = `http://localhost:5173`
+export const getRoute = (name: RouteName) : string => RoutePaths[name] ?? RoutePaths[RouteName.Home]
 
  const RoutePaths: Record<RouteName, string> = {
   [RouteName.MilkChocolate]: "/milk-chocolate",
@@ -29,7 +30,7 @@ export enum RouteName{
 export default [
     index("routes/home.tsx"),
     route("/products", "routes/ProductDemo.tsx"),
-    route("/products/search", "routes/Search.tsx"),
+    route("/products/search/:params", "routes/Search.tsx"),
     route("/products/:productLink", "routes/ProductDetail.tsx"),
     route("/milk-chocolate", "routes/MilkChocolate.tsx"),
     route("/dark-chocolate", "routes/DarkChocolate.tsx"),

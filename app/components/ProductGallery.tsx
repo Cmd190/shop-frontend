@@ -28,7 +28,7 @@ const ProductGallery = ({ products, caption, subcaption }: ProductGalleryProps) 
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {products &&
             products.map((p) => (
-              <NavLink key={p.id} to={`/${getRoute(RouteName.Products)}/${p.productLink}`}>
+              <NavLink key={p.id} to={`${getRoute(RouteName.Products)}/${p.productLink}`}>
                 <ProductCard p={p} />
               </NavLink>
             ))}

@@ -8,7 +8,7 @@ import { ProductDetailCard } from '~/components/ProductDetailCard';
 export const clientLoader = async ({params}: Route.ClientLoaderArgs) : Promise<Product | null> => {
 
   try {
-      const url = `${API_BASE_URL}/${API_PRODUCT}?name=${params.productLink}`;
+      const url = `${API_BASE_URL}/${API_PRODUCT}?link=${params.productLink}`;
       const res = await fetch(url);
       const products = await res.json();
       return products as Promise<Product>;

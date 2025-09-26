@@ -19,7 +19,7 @@ export default function Searchbar() {
           placeholder='search'
           className='flex-1 px-4 py-1 border text-black border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-orange-800 transition'
            />
-           <NavLink to={`/${getRoute(RouteName.Search)}/?${searchUrlParams.productName}=${createSearchParameter(searchTerm)}`}>
+           <NavLink to={`${getRoute(RouteName.Search)}/?${searchUrlParams.productName}=${createSearchParameter(searchTerm)}`}>
               <button
         className='px-4 py-1 bg-orange-900 text-white font-medium rounded-xl hover:bg-orange-800 active:scale-95 transition'
          >Search</button>
@@ -28,20 +28,4 @@ export default function Searchbar() {
         
       </div>
     )
-  //   
-  //   const [filteredItems, setFilteredItems] = useState<Product[]>([])
-
-  //   const searchProducts = () => {
-  //       let searchResult = useLoaderData<typeof loader>()
-  //   }
-
-  // return (
-  //   <div>
-  //       <input type='text' value={searchTerm} 
-  //       onChange={e => setSearchTerm(e.target.value)}
-  //       placeholder='search...' 
-  //       />
-  //       <button onClick={() => searchProducts()}>Search</button>
-  //   </div>
-  // )
 }

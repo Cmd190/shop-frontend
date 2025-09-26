@@ -17,6 +17,17 @@ export const fetchProductsByCategory = async (
   }
 };
 
+enum API_Params{
+  pageNumber='PageNumber',
+  pageSize='PageSize',
+  minPrice='MinPrice',
+  maxPrice='MaxPrice',
+  productName='ProductName',
+  category='Category',
+  manufacturer='Manufacturer'
+
+}
+
 type searchProductsParams = {
   pageSize: number;
   pageNumber: number;
@@ -32,13 +43,15 @@ export const searchProducts = async (searchParams: searchProductsParams): Promis
   const {pageSize, pageNumber, productName, category, manufacturer, maxPrice, minPrice} = searchParams
   try {
     const url = `${API_BASE_URL}/${API_PRODUCT}/all?` +
-    `PageNumber=${pageNumber}` +
-    `&PageSize=${pageSize}` +
-    `&MinPrize=${minPrice}` +
-    (productName ? `&ProductName=${encodeURIComponent(productName)}` : '') +
-    (maxPrice ? `&MaxPrize=${minPrice}` : '' ) +
-    (category ? `&Category=${category}` : '') +
-    (manufacturer ? `&Manufacturer=${manufacturer}` : '') 
+    `${API_Params.pageNumber}=${pageNumber}` +
+    `&${API_Params.pageSize}=${pageSize}` +
+    `&${API_Params.minPrice}=${minPrice}` +
+    (productName ? `&${API_Params.productName}=${encodeURIComponent(productName)}` : '') +
+    (maxPrice ? `&${API_Params.maxPrice}=${minPrice}` : '' ) +
+    (category ? `&${API_Params.category}=${encodeURIComponent(category)}` : '') +
+    (manufacturer ? `&${API_Params.manufacturer}=${encodeURIComponent(manufacturer)}` : '') 
+
+    console.log('Search triggered. Calling API with: ' + url)
     
     const res = await fetch(url);
     const products = await res.json();
@@ -53,7 +66,6 @@ export const fetchProductsByName = async (
   startsWith: string
 ): Promise<Product[] | null> => {
   try {
-    // TODO implement search API
     const url = `${API_BASE_URL}/${API_PRODUCT}/startsWith=${startsWith}`;
     const res = await fetch(url);
     const products = await res.json();
