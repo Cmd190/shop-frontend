@@ -9,10 +9,10 @@ import type { A } from 'node_modules/react-router/dist/development/route-data-Cq
 const defaultPageSize=20
 
 export enum searchUrlParams{
-  productName='productName',
+  productName='p',
   minPrice='minPrice',
   maxPrice='maxPrice',
-  category='category',
+  category='c',
   manufacturer='manufacturer'
 } 
 
@@ -28,14 +28,19 @@ function extractSearchParams(search: URLSearchParams) {
 
 
 export const clientLoader = async ({params}: Route.ClientLoaderArgs) : Promise<Product[] | null> => {
-  const [search, setSearch] = useSearchParams();
-
+    // const url = new URL(params.url);
     // TODO implement search controls
+    // TODO replace + with whitespace again
     //  setSearch({ title: event.target.value });
-     const {productName, minPrice, maxPrice, category, manufacturer} = extractSearchParams(search) 
-     const pageSize=10
     
-    return searchProducts({productName, minPrice, maxPrice, category, manufacturer,pageSize: defaultPageSize, pageNumber:1})
+    return searchProducts({productName:
+      params.product ?? '', 
+      category:params.category ?? null,
+      minPrice:0,
+      maxPrice:null,
+      manufacturer:null,
+      pageSize: defaultPageSize,
+       pageNumber:1})
 }
 
 const caption = "Results for "
