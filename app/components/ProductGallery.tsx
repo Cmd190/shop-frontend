@@ -8,10 +8,10 @@ import { getRoute, RouteName } from "~/routes";
 type ProductGalleryProps = {
   products: Product[] | null,
   caption : string,
-  subcaption: string
+  subcaption: string,
 };
 
-const ProductGallery = ({ products, caption, subcaption }: ProductGalleryProps) => {
+const ProductGallery = ({ products, caption, subcaption}: ProductGalleryProps) => {
   // TODO error handling for data fetching with react router
   const [error, setError] = useState<string>("");
   return (
