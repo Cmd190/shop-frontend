@@ -1,3 +1,4 @@
+import { Checkbox } from '@mui/material';
 import { useState, type ReactElement } from 'react';
 import type React from 'react';
 
@@ -14,13 +15,7 @@ const SearchCheckboxControl = ( {header, items, toggleItem}: SearchCheckboxContr
     <h3 className='font-medium mb-2'>{header}</h3>
     {items.map(item => (
       <label key={item} className='flex items-center space-x-2 mb-1'>
-        <input type='checkbox' 
-          // checked={isChecked} 
-          onChange={_ => {
-            toggleItem(item)
-            // setIsChecked(prev => !prev)
-          }}
-          className='text-orange-900 focus:ring-orange-800' />
+        <Checkbox onChange={_ => toggleItem(item)} />
         <span>{item}</span>
       </label>
     ))}

@@ -23,8 +23,8 @@ enum API_Params{
   minPrice='MinPrice',
   maxPrice='MaxPrice',
   productName='ProductName',
-  category='Category',
-  manufacturer='Manufacturer'
+  category='Categories',
+  manufacturer='Manufacturers'
 
 }
 
@@ -47,12 +47,13 @@ export const searchProducts = async (searchParams: searchProductsParams): Promis
     `&${API_Params.pageSize}=${pageSize}` +
     `&${API_Params.minPrice}=${minPrice}` +
     (productName ? `&${API_Params.productName}=${encodeURIComponent(productName)}` : '') +
-    (maxPrice ? `&${API_Params.maxPrice}=${minPrice}` : '' ) +
+    (maxPrice ? `&${API_Params.maxPrice}=${maxPrice}` : '' ) +
     (category ? `&${API_Params.category}=${encodeURIComponent(category)}` : '') +
     (manufacturer ? `&${API_Params.manufacturer}=${encodeURIComponent(manufacturer)}` : '') 
 
     console.log('Search triggered. Calling API with: ' + url)
     
+    // TODO better error catching
     const res = await fetch(url);
     const products = await res.json();
     return products as Promise<Product[]>;

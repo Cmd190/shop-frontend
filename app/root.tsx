@@ -58,10 +58,10 @@ const navItems : NavItem[] = [
 
 export default function App() {
   return (
-    <>
+    <div className="bg-white dark:bg-white">
       <Navbar navItems={navItems}  />
       <Outlet />
-    </>
+    </div>
   ) 
 }
 
