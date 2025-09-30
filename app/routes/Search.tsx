@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, type ReactElement } from 'react'
 import { fetchProductsByCategory, fetchProductsByName, searchProducts } from '~/ApiHelper'
 import type { Product } from '~/types/types'
 import type { Route } from './+types/Search'
 import { useSearchParams } from 'react-router'
 import ProductGallery from '~/components/ProductGallery'
-import SearchCheckboxControl from '~/components/SearchCheckboxControl'
+import SearchCheckboxArea from '~/components/SearchCheckboxArea'
 import { Box, Slider } from '@mui/material'
+import SearchOptionsPanel from '~/components/SearchOptionsPanel'
 
 const defaultPageSize=20
 
@@ -77,9 +78,7 @@ export const Search = ({loaderData} : Route.ComponentProps ) => {
   function toggleManufacturer(m: string){
     toggleSearchParam(searchUrlParams.manufacturer, m)
   } 
-    // setManufacturer(prev => prev.includes(m) ? prev.filter(cat => m !== cat) : [...prev, m])
    function toggleCategory(c: string) {
-    // setCategories(prev => prev.includes(c) ? prev.filter(cat => c !== cat) : [...prev, c])
     toggleSearchParam(searchUrlParams.category, c)
   } 
 
@@ -108,34 +107,19 @@ export const Search = ({loaderData} : Route.ComponentProps ) => {
     // TODO set intial value of search controls depending on url
     // TODO fix scrollbar jump when changing search url
   return (
-    <div className='flex flex-col md:flex-row gap-6'>
-      {/* left filter panel */}
-      <aside className='w-full md:w-1/4 bg-white dark:bg-white shadow-md p-4 rounded-xl'>
-        
-
-        <div className='mb-6 ml-2'>
-          <h3 className="font-medium mb-10 text-gray-800">Price (€):</h3>
-          <Box sx={{ width: 300 }}>
-            <Slider
-              getAriaLabel={() => 'Price range'}
-              value={priceRange}
-              onChange={(_, newValue) => handlePriceRangeChanged(newValue)}
-              valueLabelDisplay="on"
-              getAriaValueText={(value) => `${value}€`}
-             />
-          </Box>
-        </div> 
-        <SearchCheckboxControl header='Categories' items={categoryLabels} toggleItem={toggleCategory} />
-        <SearchCheckboxControl header='Manufacturer' items={manufacturerLabels} toggleItem={toggleManufacturer} />
-      
-      </aside>
-      <ProductGallery products={loaderData} caption={`${caption}${searchParams?.productName}`} subcaption={''} />
-      
-    </div>
-
+    
+     <SearchOptionsPanel
+       priceRange={priceRange}
+       handlePriceRangeChanged={handlePriceRangeChanged}
+       toggleCategory={toggleCategory}
+       toggleManufacturer={toggleManufacturer}
+       categoryLabels={categoryLabels}
+       manufacturerLabels={manufacturerLabels}
+       />
 
   )
 }
+
 
 
 export default Search;

@@ -6,7 +6,7 @@ import type { Product } from '~/types/types'
 
 const Searchbar = (): ReactElement => {
 
-  const [search, setSearch] = useSearchParams();
+  const [search, setSearch] = useSearchParams()
   const [searchTerm, setSearchTerm] = useState<string>('')
       
      const createSearchParameter = (term : string) : string => term.toLowerCase().replace(' ', '+')

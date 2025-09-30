@@ -3,7 +3,7 @@ import type { Product } from "~/types/types";
 
 export const ProductCard = ({ p }: { p: Product }) => (
   
-  <li className="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center transition-transform hover:scale-105 duration-300">
+  <li className=" h-full bg-white rounded-xl shadow-[0_0_10px_rgba(0,0,0,0.15)] p-6 flex flex-col items-center text-center transition-transform hover:scale-105 duration-300">
     <h3 className="text-2xl font-semibold text-gray-900 mb-2">{p.name}</h3>
     <img
       src="/veganlargeheart.jpg"
