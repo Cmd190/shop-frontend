@@ -1,20 +1,31 @@
+import { fetchProductsByCategory } from "~/ApiHelper";
+import ProductGallery from "~/components/ProductGallery";
+import type { Product } from "~/types/types";
 import type { Route } from "./+types/home";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "Chocolate shop" },
+    { name: "description", content: "Welcome to the chocolate shop with heart" },
   ];
 }
 
-export default function Home() {
+const caption = 'Delicious chocolate '
+const subcaption = 'Manufactured chocolate made with a lot of love to provide the finest quality'
+
+export const clientLoader = async ({params}: Route.ClientLoaderArgs) : Promise<Product[]> => {
+    return Promise.all([
+      fetchProductsByCategory('dark chocolate'),
+      fetchProductsByCategory('milk chocolate'),
+      fetchProductsByCategory('white chocolate')])
+      .then(res => res.flatMap(r => r ?? [])) 
+}
+
+
+
+export default function Home({loaderData} : Route.ComponentProps ) {
   return (
   <>
-    <h2>Chocolate Shop with heart</h2>
-    <nav>
-        <a href="/milk-chocolate">Milk Chocolate</a>
-        <a href="/dark-chocolate">Dark Chocolate</a>
-        <a href="/white-chocolate">White Chocolate</a>
-    </nav>
+    <ProductGallery products={loaderData} caption={caption} subcaption={subcaption} />
   </>);
 }
