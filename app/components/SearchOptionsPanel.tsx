@@ -23,8 +23,6 @@ const SearchOptionsPanel = (props: SearchOptionsPanelProps): ReactElement => {
     manufacturerLabels,
   } = props;
 
-  // TODO why does setting price takes so long?
-  // TODO why does it take to long for the useEffect after reload?
    const [search, _] = useSearchParams()
    const [price, setPrice] = useState<number[]>(priceRange)
    useEffect(() =>{
@@ -43,7 +41,6 @@ const SearchOptionsPanel = (props: SearchOptionsPanelProps): ReactElement => {
    
 
   return (
-    <div className="flex flex-col md:flex-row gap-6">
       <aside className="w-full md:w-1/4 bg-white dark:bg-white shadow-md p-4 rounded-xl">
         <div className="mb-6 ml-2">
           <h3 className="font-medium mb-10 text-gray-800">Price (€):</h3>
@@ -71,7 +68,6 @@ const SearchOptionsPanel = (props: SearchOptionsPanelProps): ReactElement => {
 
         />
       </aside>
-    </div>
   );
 };
 

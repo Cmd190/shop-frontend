@@ -23,15 +23,10 @@ export const getRoute = (name: RouteName) : string => RoutePaths[name] ?? RouteP
 };
 
 
-//    productName, minPrice, maxPrice, category, manufacturer
-
-
 export default [
     index("routes/home.tsx"),
     route("/products", "routes/ProductDemo.tsx"),
     route("/products/search", "routes/Search.tsx"),
-    // route("/products/search/p=?/:product?/c=?/:category?", "routes/Search.tsx"),
-
     route("/products/:productLink", "routes/ProductDetail.tsx"),
     route("/milk-chocolate", "routes/MilkChocolate.tsx"),
     route("/dark-chocolate", "routes/DarkChocolate.tsx"),
