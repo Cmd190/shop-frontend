@@ -1,6 +1,6 @@
 # Welcome to my chocolate webshop!
 
-This is the frontend project. The backend can be found [here](https://github.com/Cmd190/shop-frontend).
+This is the frontend project. The backend can be found [here](https://github.com/Cmd190/shop-backend).
 Please note that this is an experimental project which I use to practice my coding skills. It's not perfect and it't not meant to be.
 
 Technologies: React, React Router, Typescript, Tailwind CSS.
@@ -17,7 +17,6 @@ Technologies: React, React Router, Typescript, Tailwind CSS.
 - Authentification
 - different product options
 
-
 ## Project Structure
 
 - --app
@@ -25,6 +24,3 @@ Technologies: React, React Router, Typescript, Tailwind CSS.
 - ---- routes: React router routes/subpages
 - ---- root.tsx: root file bootstrapping the application
 - ---- routes.ts: defines the routes for react router
-
-
-
