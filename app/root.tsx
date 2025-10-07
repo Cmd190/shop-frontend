@@ -16,6 +16,7 @@ import { getRoute, RouteName } from "./routes";
 import { createBrowserRouter } from "react-router-dom";
 import { createRoutesFromElements } from "react-router";
 import Searchbar from "./components/Searchbar";
+import { ShoppingCartProvider } from "./components/ShoppingCartContextProvider";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -59,8 +60,10 @@ const navItems : NavItem[] = [
 export default function App() {
   return (
     <div className="bg-white dark:bg-white">
-      <Navbar navItems={navItems}  />
-      <Outlet />
+      <ShoppingCartProvider>
+        <Navbar navItems={navItems}  />
+        <Outlet />
+      </ShoppingCartProvider>
     </div>
   ) 
 }

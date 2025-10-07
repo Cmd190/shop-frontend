@@ -1,7 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import Searchbar from "./Searchbar";
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import Badge, { badgeClasses } from '@mui/material/Badge';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { styled } from "@mui/material/styles";
+import { ShoppingCartContext } from "./ShoppingCartContext";
 
 export type NavItem = {
   name: string;
@@ -14,33 +20,15 @@ interface NavItemsProps {
 
 export default function Navbar({ navItems }: NavItemsProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [itemCount, SetItemCount] = useState<number>(0)
+    const cart = useContext(ShoppingCartContext)
+    
 
-  const ShoppingCart = 
-   <NavLink     
-              to="/cart"
-              className="relative p-2 text-gray-600 hover:text-gray-900"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                />
-              </svg>
-              {itemCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-blue-600 text-white rounded-full h-5 w-5 flex items-center justify-center text-xs">
-                  {itemCount}
-                </span>
-              )}
-            </NavLink>
+  const CartBadge = styled(Badge)`
+  & .${badgeClasses.badge} {
+    top: -12px;
+    right: -6px;
+  }
+`;
 
   return (
     <nav className="bg-white shadow-md px-6 py-1">
@@ -60,7 +48,10 @@ export default function Navbar({ navItems }: NavItemsProps) {
           <Searchbar/>
           <div className="flex items-center">
             <div className="space-x-2  mr-24 ml-8 ">
-            {ShoppingCart}
+            <IconButton>
+              <ShoppingCartIcon fontSize="small" />
+              <CartBadge badgeContent={cart?.state.total} color="primary" overlap="circular" />
+            </IconButton>
             </div>
           </div>
           
