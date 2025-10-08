@@ -50,7 +50,7 @@ export default function Navbar({ navItems }: NavItemsProps) {
             <div className="space-x-2  mr-24 ml-8 ">
             <IconButton>
               <ShoppingCartIcon fontSize="small" />
-              <CartBadge badgeContent={cart?.state.total} color="primary" overlap="circular" />
+              <CartBadge badgeContent={cart?.state.items.map(item => item.quantity).reduce(q => q + q)} color="primary" overlap="circular" />
             </IconButton>
             </div>
           </div>

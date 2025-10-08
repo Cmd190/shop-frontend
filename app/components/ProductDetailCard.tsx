@@ -39,7 +39,7 @@ export const ProductDetailCard: React.FC<ProductDetailProps> = ({ p }) => {
   const price =
     p.discount > p.price - p.price * (p.discount / 100) ? 0 : p.price;
 
-  const [itemCount, SetItemCount] = useState<number>(1)
+  const [itemCount, SetItemCount] = useState<number>(0)
   const cart = useContext(ShoppingCartContext)
   
   return (
@@ -95,7 +95,7 @@ export const ProductDetailCard: React.FC<ProductDetailProps> = ({ p }) => {
           </p>
           <div className="flex items-center gap-4">
             <IconButton
-              onClick={ () => SetItemCount( count => count + 1)}
+              onClick={ () => SetItemCount(count => count + 1)}
               sx={{
                 color: "#78350f",
                 borderColor: "#d4a373",
@@ -104,9 +104,9 @@ export const ProductDetailCard: React.FC<ProductDetailProps> = ({ p }) => {
             >
             <AddIcon />
             </IconButton>
-            <span className="text-gray-500 text-sm">4</span>
+            <span className="text-gray-500 text-sm">{itemCount}</span>
             <IconButton
-              onClick={ () => SetItemCount( count => count - 1)}
+              onClick={ () => itemCount > 0 ? SetItemCount( count => count - 1): ""}
               sx={{
                 color: "#78350f",
                 borderColor: "#d4a373",

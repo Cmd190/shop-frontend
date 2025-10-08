@@ -33,7 +33,7 @@ export function cartReducer(state: CartState, action: CartAction): CartState {
         item => item.product.id === action.payload.product.id
       );
 
-      if (existingItem) {
+      if (existingItem && action.payload.quantity > 0) {
         return {
           ...state,
           items: state.items.map(item =>
@@ -54,7 +54,7 @@ export function cartReducer(state: CartState, action: CartAction): CartState {
 
     case 'REMOVE_ITEM': {
       const item = state.items.find(item => item.product.id === action.payload);
-      if (!item) return state;
+      if (!item || action.payload > 0) return state;
 
       return {
         ...state,
@@ -65,7 +65,7 @@ export function cartReducer(state: CartState, action: CartAction): CartState {
 
     case 'UPDATE_QUANTITY': {
       const item = state.items.find(item => item.product.id === action.payload.productId);
-      if (!item) return state;
+      if (!item || action.payload.quantity === 0) return state;
 
       const quantityDiff = action.payload.quantity - item.quantity;
 
