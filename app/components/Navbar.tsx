@@ -8,6 +8,7 @@ import Badge, { badgeClasses } from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { styled } from "@mui/material/styles";
 import { ShoppingCartContext } from "./ShoppingCartContext";
+import ShoppingCartOverlay from "./ShoppingCartOverlay";
 
 export type NavItem = {
   name: string;
@@ -20,7 +21,8 @@ interface NavItemsProps {
 
 export default function Navbar({ navItems }: NavItemsProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-    const cart = useContext(ShoppingCartContext)
+  const [CartIsOpen, setCartIsOpen] = useState<boolean>(false);
+  const cart = useContext(ShoppingCartContext)
     
 
   const CartBadge = styled(Badge)`
@@ -31,6 +33,8 @@ export default function Navbar({ navItems }: NavItemsProps) {
 `;
 
   return (
+    <>
+    <ShoppingCartOverlay isOpen={CartIsOpen} setIsOpen={setCartIsOpen}  />
     <nav className="bg-white shadow-md px-6 py-1">
       <div className="flex flex-col">
         <div className="flex flex-row">
@@ -48,7 +52,7 @@ export default function Navbar({ navItems }: NavItemsProps) {
           <Searchbar/>
           <div className="flex items-center">
             <div className="space-x-2  mr-24 ml-8 ">
-            <IconButton>
+            <IconButton onClick={() => setCartIsOpen(true)}>
               <ShoppingCartIcon fontSize="small" />
               <CartBadge badgeContent={cart?.state.items.map(item => item.quantity).reduce(q => q + q)} color="primary" overlap="circular" />
             </IconButton>
@@ -110,5 +114,6 @@ export default function Navbar({ navItems }: NavItemsProps) {
         </div>
       )}
     </nav>
+    </>
   );
 }
