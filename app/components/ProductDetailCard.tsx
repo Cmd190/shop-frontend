@@ -7,8 +7,6 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { ShoppingCartContext } from "./ShoppingCartContext";
 
-
-
 export function ErrorBoundary() {
   const error = useRouteError();
 
@@ -39,9 +37,9 @@ export const ProductDetailCard: React.FC<ProductDetailProps> = ({ p }) => {
   const price =
     p.discount > p.price - p.price * (p.discount / 100) ? 0 : p.price;
 
-  const [itemCount, SetItemCount] = useState<number>(0)
-  const cart = useContext(ShoppingCartContext)
-  
+  const [itemCount, SetItemCount] = useState<number>(1);
+  const cart = useContext(ShoppingCartContext);
+
   return (
     <div className="max-w-5xl  mx-auto p-6 bg-white shadow-xl rounded-2xl">
       {/* // Image and info right of the image */}
@@ -95,34 +93,41 @@ export const ProductDetailCard: React.FC<ProductDetailProps> = ({ p }) => {
           </p>
           <div className="flex items-center gap-4">
             <IconButton
-              onClick={ () => SetItemCount(count => count + 1)}
+              onClick={() => SetItemCount((count) => count + 1)}
               sx={{
                 color: "#78350f",
                 borderColor: "#d4a373",
                 minWidth: "36px",
               }}
             >
-            <AddIcon />
+              <AddIcon />
             </IconButton>
             <span className="text-gray-500 text-sm">{itemCount}</span>
             <IconButton
-              onClick={ () => itemCount > 0 ? SetItemCount( count => count - 1): ""}
+              onClick={() =>
+                itemCount > 1 ? SetItemCount((count) => count - 1) : ""
+              }
               sx={{
                 color: "#78350f",
                 borderColor: "#d4a373",
                 minWidth: "36px",
               }}
             >
-            <RemoveIcon />
+              <RemoveIcon />
             </IconButton>
-            
-            <Button variant="contained" endIcon={<AddShoppingCartIcon />}
-            onClick={() => cart?.addItem(p, itemCount)}    sx={{
+
+            <Button
+              variant="contained"
+              endIcon={<AddShoppingCartIcon />}
+              onClick={() => cart?.addItem(p, itemCount)}
+              disabled={itemCount == 0}
+              sx={{
                 color: "#78350f",
                 backgroundColor: "white",
                 borderColor: "#d4a373",
                 minWidth: "36px",
-              }}>
+              }}
+            >
               Add to cart
             </Button>
           </div>

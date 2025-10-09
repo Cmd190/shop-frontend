@@ -17,7 +17,7 @@ type CartAction =
   | { type: 'UPDATE_QUANTITY'; payload: { productId: number; quantity: number } }
   | { type: 'CLEAR_CART' };
 
-interface CartContextType {
+export interface CartContextType {
   state: CartState;
   addItem: (product: Product, quantity: number) => void;
   removeItem: (productId: number) => void;

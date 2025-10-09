@@ -7,7 +7,7 @@ import IconButton from '@mui/material/IconButton';
 import Badge, { badgeClasses } from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { styled } from "@mui/material/styles";
-import { ShoppingCartContext } from "./ShoppingCartContext";
+import { ShoppingCartContext, type CartContextType } from "./ShoppingCartContext";
 import ShoppingCartOverlay from "./ShoppingCartOverlay";
 
 export type NavItem = {
@@ -32,6 +32,13 @@ export default function Navbar({ navItems }: NavItemsProps) {
   }
 `;
 
+function CalculateShoppingItems( ) {
+
+  return cart === undefined || cart.state.items.length === 0 
+    ? 0
+    : cart.state.items.map(item => item.quantity)?.reduce((q,q1) => q1 + q);
+}
+
   return (
     <>
     <ShoppingCartOverlay isOpen={CartIsOpen} setIsOpen={setCartIsOpen}  />
@@ -54,7 +61,10 @@ export default function Navbar({ navItems }: NavItemsProps) {
             <div className="space-x-2  mr-24 ml-8 ">
             <IconButton onClick={() => setCartIsOpen(true)}>
               <ShoppingCartIcon fontSize="small" />
-              <CartBadge badgeContent={cart?.state.items.map(item => item.quantity).reduce(q => q + q)} color="primary" overlap="circular" />
+              <CartBadge badgeContent={CalculateShoppingItems()} color="primary" overlap="circular" />
+              {/* <CartBadge badgeContent={() =>  cart === undefined || cart.state.items.length === 0 
+    ? 0
+    : cart.state.items.map(item => item.quantity)?.reduce(q => q + q)} color="primary" overlap="circular" /> */}
             </IconButton>
             </div>
           </div>
@@ -117,3 +127,5 @@ export default function Navbar({ navItems }: NavItemsProps) {
     </>
   );
 }
+
+
