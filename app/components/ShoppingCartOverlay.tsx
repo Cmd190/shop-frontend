@@ -5,6 +5,7 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import { ShoppingCartContext, type CartItem } from "./ShoppingCartContext";
 import { ProductCard } from "./ProductCard";
 import type { Product } from "~/types/types";
+import ShoppingCartItem from "./ShoppingCartItem";
 
 type ShoppingCartOverlayProps = {
   isOpen: boolean;
@@ -17,13 +18,21 @@ const ShoppingCartOverlay = ({
 }: ShoppingCartOverlayProps): ReactElement => {
   // TODO mobile width w-full sm:w-2/3 lg:w-1/3
   const cart = useContext(ShoppingCartContext);
+  const handleShoppingItemIncrease = (item: CartItem) =>
+    cart?.updateQuantity(item.product.id, item.quantity + 1);
 
-  const reduceItemCount = (item: CartItem) => {
-      if(item.quantity > 1){
-        cart?.updateQuantity(item.product.id, item.quantity -1)
-      }
+  const removeItem = (item:CartItem) =>{
+    console.log(`remove item ${item.product.name} with id ${item.product.id}`)
+  cart?.removeItem(item.product.id)
+  console.log('item removed')
   }
 
+
+  const reduceItemCount = (item: CartItem) => {
+    if (item.quantity > 1) {
+      cart?.updateQuantity(item.product.id, item.quantity - 1);
+    }
+  };
 
   return (
     <div>
@@ -53,54 +62,43 @@ const ShoppingCartOverlay = ({
 
         {/* Body */}
         <div className="p-6 space-y-4 overflow-y-auto h-[calc(100%-4rem)]">
-          <Button variant="contained"
-            onClick={() => cart?.clearCart()}    sx={{
-                color: "#cb3300ff",
-                backgroundColor: "white",
-                borderColor: "#e8dfd6ff",
-                minWidth: "36px",
-              }}>
-              Clear cart
-            </Button>
+        
           {cart?.state.items.length == 0 ? (
             <p className="text-gray-700">Your shopping cart is empty</p>
           ) : (
-            <ul className="grid grid-cols-1 gap-8">
-            {cart?.state.items.map((item) => (
-              <li key={item.product.id} className="h-62 flex flex-col justify-between">
-                <ProductCard p={item.product} />
-                <div className="flex items-center gap-4">
-                  <IconButton
-                    onClick={() => cart.updateQuantity(item.product.id, item.quantity + 1)}
-                    sx={{
-                      color: "#78350f",
-                      borderColor: "#d4a373",
-                      minWidth: "36px",
-                    }}
-                  >
-                    <AddIcon />
-                  </IconButton>
-                  <span className="text-gray-500 text-sm">{item.quantity}</span>
-                  <IconButton
-                    onClick={() => reduceItemCount(item)}
-                    sx={{
-                      color: "#78350f",
-                      borderColor: "#d4a373",
-                      minWidth: "36px",
-                    }}
-                  >
-                    <RemoveIcon />
-                  </IconButton>
-                </div>
-              </li>
-            ))}
+            <ul className="grid grid-cols-1 gap-8 h-[calc(100%-8rem)] overflow-y-auto">
+              {cart?.state.items.map((item) => (
+                <ShoppingCartItem
+                  key={item.product.id}
+                  item={item}
+                  handleIncreaseCount={handleShoppingItemIncrease}
+                  handleDecreaseCount={reduceItemCount}
+                  handleRemoveItem={removeItem}
+                />
+              ))}
             </ul>
           )}
-          <div className="flex flex-col items-center space-y-4 mt-12 ">
-            <span className="text-gray-500 font-bold text-lg">Total sum: {cart?.state.total.toFixed(2)}€ </span>
+          <div className=" absolute bottom-0 left-0 w-full border-t border-gray-200 bg-white flex flex-col items-center px-6 py-4  ">
+            <span className="text-gray-500 font-bold text-lg">
+              Total: {cart?.state.total.toFixed(2)}€{" "}
+            </span>
+            <div className="flex flex-row gap-12 mt-6">
             <Button>Buy Now</Button>
+            <Button
+            variant="contained"
+            onClick={() => cart?.clearCart()}
+            sx={{
+              color: "#cb3300ff",
+              backgroundColor: "white",
+              borderColor: "#e8dfd6ff",
+              minWidth: "36px",
+            }}
+          >
+            Clear cart
+          </Button>
+            </div>
+
           </div>
-          
         </div>
       </div>
     </div>
