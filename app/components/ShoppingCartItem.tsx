@@ -17,7 +17,6 @@ export default function ShoppingCartItem(props: ShoppingCartItemProps) {
   const p = item.product;
 
   return (
-    // <li className="h-62 flex flex-col justify-between bg-white border-b-5 border-gray-900">
     <li className="flex flex-col bg-white border-b border-gray-400 py-4 px-6 space-y-4">
       <div className="flex justify-end">
         <button

@@ -42,7 +42,7 @@ function CalculateShoppingItems( ) {
   return (
     <>
     <ShoppingCartOverlay isOpen={CartIsOpen} setIsOpen={setCartIsOpen}  />
-    <nav className="bg-white shadow-md px-6 py-1">
+    <nav className="bg-white border-b border-gray-400 px-6 py-1 pb-2">
       <div className="flex flex-col">
         <div className="flex flex-row">
          {/* logo */}
@@ -60,11 +60,8 @@ function CalculateShoppingItems( ) {
           <div className="flex items-center">
             <div className="space-x-2  mr-24 ml-8 ">
             <IconButton onClick={() => setCartIsOpen(true)}>
-              <ShoppingCartIcon fontSize="small" />
+              <ShoppingCartIcon fontSize="medium" />
               <CartBadge badgeContent={CalculateShoppingItems()} color="primary" overlap="circular" />
-              {/* <CartBadge badgeContent={() =>  cart === undefined || cart.state.items.length === 0 
-    ? 0
-    : cart.state.items.map(item => item.quantity)?.reduce(q => q + q)} color="primary" overlap="circular" /> */}
             </IconButton>
             </div>
           </div>
@@ -82,8 +79,8 @@ function CalculateShoppingItems( ) {
                 className={({ isActive }) =>
                   `text-lg font-medium transition-colors ${
                     isActive
-                      ? "text-blue-600"
-                      : "text-gray-600 hover:text-blue-500"
+                      ? "text-orange-800 font-bold"
+                      : "text-gray-600 hover:text-orange-700"
                   }`
                 }
               >

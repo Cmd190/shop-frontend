@@ -41,7 +41,7 @@ export const ProductDetailCard: React.FC<ProductDetailProps> = ({ p }) => {
   const cart = useContext(ShoppingCartContext);
 
   return (
-    <div className="max-w-5xl x-auto p-6 bg-white shadow-xl rounded-2xl">
+    <div className="max-w-5xl x-auto p-6 bg-white mt-12">
       {/* // Image and info right of the image */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="flex justify-center items-center">
