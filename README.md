@@ -5,15 +5,27 @@ Please note that this is an experimental project which I use to practice my codi
 
 Technologies: React, React Router, Typescript, Tailwind CSS.
 
+Homepage (using placeholder images):
+![homepage](images/homepage.jpg)
+
 ## Current Features:
 
 - Pages for different categories
+  
+  ![categories page](images/category.jpg)
 - Detail page for products
+  
+  ![detail page](images/product.jpg)
 - Search function with different options
+  
+  ![search page](images/search.jpg)
+- Shopping cart
+  
+  ![shopping cart page](images/cart.jpg)
 
 ## Planned Features:
 
-- Shopping Cart and Buy Products Page
+- Replace placeholder images
 - Authentification
 - different product options
 

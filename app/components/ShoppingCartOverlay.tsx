@@ -38,13 +38,13 @@ const ShoppingCartOverlay = ({
     <div>
       {isOpen && (
         <div
-          className="fixed inset-0 bg-grey-100 bg-opacity-50 z-40"
+          className="fixed inset-0 bg-[rgba(0,0,0,0.5)] z-40 transition-opacity z-40"
           onClick={() => setIsOpen(false)}
         />
       )}
       {/* 🧡 Slide-In Drawer */}
       <div
-        className={`fixed top-0 right-0 h-full w-1/3 bg-white shadow-xl z-50 transform transition-transform duration-300 ease-in-out 
+        className={`fixed top-0 right-0 h-full w-1/3 bg-white shadow-xl z-50 transform transition-transform duration-400 ease-in-out 
         ${isOpen ? "translate-x-0" : "translate-x-full"}`}
       >
         {/* Header */}
