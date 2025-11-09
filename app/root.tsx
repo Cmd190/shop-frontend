@@ -17,6 +17,13 @@ import { createBrowserRouter } from "react-router-dom";
 import { createRoutesFromElements } from "react-router";
 import Searchbar from "./components/Searchbar";
 import { ShoppingCartProvider } from "./components/ShoppingCartContextProvider";
+import type { Button } from "@mui/material";
+import { useState } from "react";
+import { AuthenticatedTemplate, MsalProvider, UnauthenticatedTemplate, useMsal } from '@azure/msal-react';
+import { loginRequest, msalConfig } from './authConfig';
+import SignInScreen from "./components/SignInScreen";
+import { EventType, PublicClientApplication, type AuthenticationResult, type EventMessage } from '@azure/msal-browser';
+import MsalAccountSetter from "./components/MsalAccountSetter";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -49,6 +56,27 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
+/**
+ * Attaches a given access token to a MS Graph API call. Returns information about the user
+ * @param accessToken 
+ */
+export async function callMsGraph(accessToken:any) {
+    const headers = new Headers();
+    const bearer = `Bearer ${accessToken}`;
+
+    headers.append("Authorization", bearer);
+
+    const options = {
+        method: "GET",
+        headers: headers
+    };
+
+    return fetch("TODO", options)
+        .then(response => response.json())
+        .catch(error => console.log(error));
+}
+
+
 
 
 const navItems : NavItem[] = [
@@ -57,14 +85,25 @@ const navItems : NavItem[] = [
   {name: "White Chocolate", path: getRoute(RouteName.WhiteChocolate)}
 ]
 
+export const msalInstance = new PublicClientApplication(msalConfig);
+
 export default function App() {
   return (
-    <div className="bg-white dark:bg-white">
-      <ShoppingCartProvider>
+    <MsalProvider instance={msalInstance}>
+      <MsalAccountSetter />
+      <div className="bg-white dark:bg-white">
+      <AuthenticatedTemplate>
+        <ShoppingCartProvider>
         <Navbar navItems={navItems}  />
         <Outlet />
       </ShoppingCartProvider>
+      </AuthenticatedTemplate>
+      <UnauthenticatedTemplate>
+          <SignInScreen/>
+      </UnauthenticatedTemplate>
     </div>
+    </MsalProvider>
+    
   ) 
 }
 

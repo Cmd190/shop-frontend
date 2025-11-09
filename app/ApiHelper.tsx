@@ -1,4 +1,7 @@
+import { useMsal, useMsalAuthentication } from "@azure/msal-react";
+import { msalInstance } from "./root";
 import type { Product } from "./types/types";
+import { loginRequest } from "./authConfig";
 
 export const API_BASE_URL = "http://localhost:5212";
 
@@ -38,6 +41,32 @@ type searchProductsParams = {
   maxPrice: number | null;
 };
 
+// TODO would be cleaner but we can't use them in a function
+const fetchWithAuth = async(url:string) : Promise<any> => {
+  const account = msalInstance.getActiveAccount();
+    if (!account) {
+        throw Error("No active account! Verify a user has been signed in and setActiveAccount has been called.");
+    }
+
+    const response = await msalInstance.acquireTokenSilent({
+        ...loginRequest,
+        account: account
+    });
+
+    const headers = new Headers();
+    const bearer = `Bearer ${response.accessToken}`;
+
+    headers.append("Authorization", bearer);
+      const options = {
+        method: "GET",
+        headers: headers
+    };
+
+    return fetch(url, options)
+
+    
+}
+
 //search for possible undefined
 export const searchProducts = async (searchParams: searchProductsParams): Promise<Product[] | null> => {
   const {pageSize, pageNumber, productName, category, manufacturer, maxPrice, minPrice} = searchParams
@@ -53,8 +82,7 @@ export const searchProducts = async (searchParams: searchProductsParams): Promis
 
     console.log('Search triggered. Calling API with: ' + url)
     
-    // TODO better error catching
-    const res = await fetch(url);
+    const res = await fetchWithAuth(url);
     const products = await res.json();
     return products as Promise<Product[]>;
   } catch (error) {

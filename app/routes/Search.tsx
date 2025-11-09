@@ -11,6 +11,7 @@ import ProductGallery from "~/components/ProductGallery";
 import SearchCheckboxArea from "~/components/SearchCheckboxArea";
 import { Box, Slider } from "@mui/material";
 import SearchOptionsPanel from "~/components/SearchOptionsPanel";
+import { useMsal } from "@azure/msal-react";
 
 const defaultPageSize = 20;
 
@@ -46,7 +47,8 @@ export const clientLoader = async ({
     manufacturer: searchParams.manufacturer ?? null,
     pageSize: defaultPageSize,
     pageNumber: 1,
-  });
+    
+  },);
 
   return searchResults;
 };
@@ -72,8 +74,6 @@ const manufacturerLabels = [
 
 export const Search = ({ loaderData }: Route.ComponentProps) => {
   const [search, setSearch] = useSearchParams();
-  // const [categories, setCategories] = useState<string[]>([]);
-  // const [manufacturer, setManufacturer] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<number[]>([min, max]);
 
   const searchParams = extractSearchParams(search);

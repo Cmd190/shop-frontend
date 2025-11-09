@@ -4,6 +4,7 @@ import { createBrowserRouter, Route } from "react-router-dom";
 
 export enum RouteName{
     Home,
+    Login,
     MilkChocolate,
     DarkChocolate,
     WhiteChocolate,
@@ -20,11 +21,13 @@ export const getRoute = (name: RouteName) : string => RoutePaths[name] ?? RouteP
   [RouteName.Products]: "/products",
   [RouteName.Search]: "/products/search",
   [RouteName.Home]: "/home", 
+  [RouteName.Login]: "/login", 
 };
 
 
 export default [
     index("routes/home.tsx"),
+    route("/login", "routes/Login.tsx"),
     route("/products", "routes/ProductDemo.tsx"),
     route("/products/search", "routes/Search.tsx"),
     route("/products/:productLink", "routes/ProductDetail.tsx"),

@@ -9,6 +9,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { styled } from "@mui/material/styles";
 import { ShoppingCartContext, type CartContextType } from "./ShoppingCartContext";
 import ShoppingCartOverlay from "./ShoppingCartOverlay";
+import { useMsal, useIsAuthenticated } from "@azure/msal-react";
 
 export type NavItem = {
   name: string;
@@ -23,6 +24,9 @@ export default function Navbar({ navItems }: NavItemsProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [CartIsOpen, setCartIsOpen] = useState<boolean>(false);
   const cart = useContext(ShoppingCartContext)
+  const { accounts } = useMsal();
+  const isAuthenticated = useIsAuthenticated();
+  let userName = ""
     
 
   const CartBadge = styled(Badge)`
@@ -38,6 +42,13 @@ function CalculateShoppingItems( ) {
     ? 0
     : cart.state.items.map(item => item.quantity)?.reduce((q,q1) => q1 + q);
 }
+
+if (isAuthenticated && accounts.length > 0) {
+        const activeAccount = accounts[0];
+        
+        // Use the 'name' property (Display Name) if available, otherwise use 'username' (e.g., email)
+        userName = activeAccount.name || activeAccount.username;
+    }
 
   return (
     <>
@@ -88,6 +99,10 @@ function CalculateShoppingItems( ) {
               </NavLink>
             ))}
           </div>
+            <div className=" flex  items-right space-x-6">
+              <p>User: {userName}</p>
+            </div>
+            
           
         </div>
 

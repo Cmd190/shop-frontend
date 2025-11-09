@@ -9,6 +9,7 @@
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
+    "@azure/msal-react": "^3.0.21",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@fullhuman/postcss-purgecss": "^7.0.2",
