@@ -53,7 +53,7 @@ const fetchWithAuth = async(url:string) : Promise<any> => {
         ...loginRequest,
         account: account,
         scopes: [
-                  `api://${clientId}/.${apiConfig.auth.readScope}`
+                  `api://${clientId}/${apiConfig.auth.readScope}`
                  
         ]
     });

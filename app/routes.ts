@@ -27,7 +27,6 @@ export const getRoute = (name: RouteName) : string => RoutePaths[name] ?? RouteP
 
 export default [
     index("routes/home.tsx"),
-    route("/login", "routes/Login.tsx"),
     route("/products", "routes/ProductDemo.tsx"),
     route("/products/search", "routes/Search.tsx"),
     route("/products/:productLink", "routes/ProductDetail.tsx"),
