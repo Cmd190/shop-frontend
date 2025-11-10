@@ -32,8 +32,8 @@ const SignInScreen = (): ReactElement => {
                         onClick={handleLoginRedirect} // *** Use the handler here ***
                         className="
                             w-full sm:w-auto px-8 py-3 
-                            bg-orange-600 text-white font-semibold text-lg rounded-xl 
-                            hover:bg-orange-700 active:scale-[0.98] 
+                            bg-orange-900 text-white text-white font-semibold text-lg rounded-xl 
+                            hover:bg-orange-800 active:scale-[0.98] 
                             transition duration-150 ease-in-out
                             shadow-lg hover:shadow-xl
                         "

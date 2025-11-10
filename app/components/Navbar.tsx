@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { LogOut, Menu, X } from "lucide-react";
 import Searchbar from "./Searchbar";
 import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
@@ -10,6 +10,7 @@ import { styled } from "@mui/material/styles";
 import { ShoppingCartContext, type CartContextType } from "./ShoppingCartContext";
 import ShoppingCartOverlay from "./ShoppingCartOverlay";
 import { useMsal, useIsAuthenticated } from "@azure/msal-react";
+import LogoutButton from "./LogoutButton";
 
 export type NavItem = {
   name: string;
@@ -99,7 +100,8 @@ if (isAuthenticated && accounts.length > 0) {
               </NavLink>
             ))}
           </div>
-            <div className=" flex  items-right space-x-6">
+            <div className=" flex  items-center space-x-6">
+              <LogoutButton/>
               <p>User: {userName}</p>
             </div>
             
