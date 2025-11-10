@@ -1,7 +1,7 @@
 import { useMsal, useMsalAuthentication } from "@azure/msal-react";
 import { msalInstance } from "./root";
 import type { Product } from "./types/types";
-import { loginRequest } from "./authConfig";
+import { loginRequest, apiConfig } from "./authConfig";
 
 export const API_BASE_URL = "http://localhost:5212";
 
@@ -43,14 +43,19 @@ type searchProductsParams = {
 
 // TODO would be cleaner but we can't use them in a function
 const fetchWithAuth = async(url:string) : Promise<any> => {
+  await msalInstance.initialize()
   const account = msalInstance.getActiveAccount();
     if (!account) {
         throw Error("No active account! Verify a user has been signed in and setActiveAccount has been called.");
     }
-
+    const clientId = apiConfig.auth.clientId;
     const response = await msalInstance.acquireTokenSilent({
         ...loginRequest,
-        account: account
+        account: account,
+        scopes: [
+                  `api://${clientId}/.${apiConfig.auth.readScope}`
+                 
+        ]
     });
 
     const headers = new Headers();

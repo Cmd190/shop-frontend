@@ -27,18 +27,7 @@ const SignInScreen = (): ReactElement => {
         </div>
         
         <div className="flex justify-center pt-4">
-       {/* <NavLink
-              to={getRoute(RouteName.Login)}
-              className={({ isActive }) =>
-                `text-lg font-medium transition-colors ${
-                  isActive
-                    ? "text-blue-600"
-                    : "text-gray-600 hover:text-blue-500"
-                }`
-              }
-            >
-              Sign In
-            </NavLink> */}
+    
             <button 
                         onClick={handleLoginRedirect} // *** Use the handler here ***
                         className="

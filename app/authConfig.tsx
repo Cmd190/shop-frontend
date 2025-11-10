@@ -11,10 +11,17 @@ import { LogLevel } from "@azure/msal-browser";
  * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/configuration.md 
  */
 
+export const apiConfig = {
+    auth: {
+        clientId: "d54438c7-43a4-4764-b475-defc8e0e5435",
+        readScope: "Read"
+    }
+}
+
 export const msalConfig = {
     auth: {
         clientId: "944d5b61-eed2-4087-b1c3-0d935bb515ec",
-        authority: "https://login.microsoftonline.com/95a52070-5aad-485c-b447-063872eeaa30/v2.0",
+        authority: "https://login.microsoftonline.com/95a52070-5aad-485c-b447-063872eeaa30",
         redirectUri: "http://localhost:5173/",
     },
     cache: {
