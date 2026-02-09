@@ -41,6 +41,12 @@ type searchProductsParams = {
   maxPrice: number | null;
 };
 
+export type ApiResponse<T> = {
+  data: T | null;
+  status: number;
+  ok: boolean;
+}
+
 // TODO would be cleaner but we can't use them in a function
 const fetchWithAuth = async(url:string) : Promise<any> => {
   await msalInstance.initialize()
@@ -73,7 +79,7 @@ const fetchWithAuth = async(url:string) : Promise<any> => {
 }
 
 //search for possible undefined
-export const searchProducts = async (searchParams: searchProductsParams): Promise<Product[] | null> => {
+export const searchProducts = async (searchParams: searchProductsParams): Promise<ApiResponse<Product[]>> => {
   const {pageSize, pageNumber, productName, category, manufacturer, maxPrice, minPrice} = searchParams
   try {
     const url = `${API_BASE_URL}/${API_PRODUCT}/all?` +
@@ -88,11 +94,23 @@ export const searchProducts = async (searchParams: searchProductsParams): Promis
     console.log('Search triggered. Calling API with: ' + url)
     
     const res = await fetchWithAuth(url);
-    const products = await res.json();
-    return products as Promise<Product[]>;
+    const response = await res;
+    const isJson = response.headers.get('content-type')?.includes('application/json');
+    const data = isJson ? await response.json() : null;
+
+    return {
+      data,
+      status: response.status,
+      ok: response.ok
+    };
+    
   } catch (error) {
     console.log(`Error while searching products: ${error}`);
-    return null;
+    return {
+      data: null,
+      ok: false,
+      status: 500
+    };
   }
 };
 

@@ -9,7 +9,10 @@ const SignInScreen = (): ReactElement => {
   const { instance } = useMsal();
 
     const handleLoginRedirect = () => {
-        instance.loginRedirect(loginRequest);
+        instance.loginRedirect(
+          {...loginRequest, 
+            prompt: 'select_account'
+          });
     };
 
   return (

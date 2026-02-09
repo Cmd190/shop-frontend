@@ -9,9 +9,10 @@ type ProductGalleryProps = {
   products: Product[] | null,
   caption : string,
   subcaption: string,
+  errorMessage: string
 };
 
-const ProductGallery = ({ products, caption, subcaption}: ProductGalleryProps) => {
+const ProductGallery = ({ products, caption, subcaption, errorMessage}: ProductGalleryProps) => {
   // TODO error handling for data fetching with react router
   const [error, setError] = useState<string>("");
   return (
@@ -23,7 +24,10 @@ const ProductGallery = ({ products, caption, subcaption}: ProductGalleryProps) =
         {subcaption}
       </p>
       {products == null ? (
-        <p>An error has occured while loading</p>
+        (errorMessage 
+          ? errorMessage
+          :<p>An error has occured while loading</p>
+        )
       ) : (
         <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {products &&

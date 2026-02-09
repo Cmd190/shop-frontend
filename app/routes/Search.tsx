@@ -3,6 +3,7 @@ import {
   fetchProductsByCategory,
   fetchProductsByName,
   searchProducts,
+  type ApiResponse,
 } from "~/ApiHelper";
 import type { Product } from "~/types/types";
 import type { Route } from "./+types/Search";
@@ -36,7 +37,7 @@ function extractSearchParams(search: URLSearchParams) {
 export const clientLoader = async ({
   params,
   request,
-}: Route.ClientLoaderArgs): Promise<Product[] | null> => {
+}: Route.ClientLoaderArgs): Promise<ApiResponse<Product[]>> => {
   const url = new URL(request.url);
   const searchParams = extractSearchParams(url.searchParams);
   const searchResults = searchProducts({
@@ -107,6 +108,12 @@ export const Search = ({ loaderData }: Route.ComponentProps) => {
     setSearch(newSearchParams);
   };
 
+  function createErrorMessage(status: number): string {
+    return status === 403 
+    ? "You lack permissions to use this feature. Please contact your admin"
+    : ""
+  }
+
   // TODO fix scrollbar jump when changing search url
   return (
     <div className="flex flex-col md:flex-row gap-6">
@@ -119,9 +126,10 @@ export const Search = ({ loaderData }: Route.ComponentProps) => {
         manufacturerLabels={manufacturerLabels}
       />
       <ProductGallery
-        products={loaderData}
+        products={loaderData.data}
         caption={`${caption}${searchParams?.productName}`}
         subcaption={""}
+        errorMessage={createErrorMessage(loaderData.status)}
       />
     </div>
   );
