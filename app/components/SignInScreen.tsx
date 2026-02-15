@@ -1,12 +1,14 @@
 import { useMsal } from '@azure/msal-react';
 import { loginRequest } from '../authConfig';
 import { useEffect, type ReactElement } from 'react';
-import { NavLink } from 'react-router';
+import { NavLink, useNavigate } from 'react-router';
+import { EventType } from "@azure/msal-browser";
 import { getRoute, RouteName } from '~/routes';
 
 const SignInScreen = (): ReactElement => {
   
   const { instance } = useMsal();
+  
 
     const handleLoginRedirect = () => {
         instance.loginRedirect(

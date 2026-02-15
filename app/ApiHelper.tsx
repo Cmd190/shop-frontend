@@ -3,7 +3,8 @@ import { msalInstance } from "./root";
 import type { Product } from "./types/types";
 import { loginRequest, apiConfig } from "./authConfig";
 
-export const API_BASE_URL = "http://localhost:5212";
+// export const API_BASE_URL = "http://localhost:5212";
+export const API_BASE_URL = "https://localhost:7223";
 
 export const API_PRODUCT = "products";
 export const fetchProductsByCategory = async (
@@ -11,7 +12,7 @@ export const fetchProductsByCategory = async (
 ): Promise<Product[] | null> => {
   try {
     const url = `${API_BASE_URL}/${API_PRODUCT}/${category}`;
-    const res = await fetch(url);
+    const res = await fetchWithAuth(url);
     const products = await res.json();
     return products as Promise<Product[]>;
   } catch (error) {
@@ -47,7 +48,6 @@ export type ApiResponse<T> = {
   ok: boolean;
 }
 
-// TODO would be cleaner but we can't use them in a function
 const fetchWithAuth = async(url:string) : Promise<any> => {
   await msalInstance.initialize()
   const account = msalInstance.getActiveAccount();
@@ -119,7 +119,7 @@ export const fetchProductsByName = async (
 ): Promise<Product[] | null> => {
   try {
     const url = `${API_BASE_URL}/${API_PRODUCT}/startsWith=${startsWith}`;
-    const res = await fetch(url);
+    const res = await fetchWithAuth(url);
     const products = await res.json();
     return products as Promise<Product[]>;
   } catch (error) {

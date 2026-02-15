@@ -1,29 +1,25 @@
 import {
-  BrowserRouter,
   isRouteErrorResponse,
   Links,
   Meta,
-  NavLink,
   Outlet,
   Scripts,
   ScrollRestoration,
+  useNavigate,
 } from "react-router";
 
 import type { Route } from "./+types/root";
 import "./app.css";
 import Navbar, { type NavItem } from "./components/Navbar";
 import { getRoute, RouteName } from "./routes";
-import { createBrowserRouter } from "react-router-dom";
-import { createRoutesFromElements } from "react-router";
-import Searchbar from "./components/Searchbar";
 import { ShoppingCartProvider } from "./components/ShoppingCartContextProvider";
-import type { Button } from "@mui/material";
-import { useState } from "react";
-import { AuthenticatedTemplate, MsalProvider, UnauthenticatedTemplate, useMsal } from '@azure/msal-react';
-import { loginRequest, msalConfig } from './authConfig';
+import { useEffect, useState } from "react";
+import { AuthenticatedTemplate, MsalProvider, UnauthenticatedTemplate } from '@azure/msal-react';
+import { msalConfig } from './authConfig';
 import SignInScreen from "./components/SignInScreen";
-import { EventType, PublicClientApplication, type AuthenticationResult, type EventMessage } from '@azure/msal-browser';
+import { PublicClientApplication } from '@azure/msal-browser';
 import MsalAccountSetter from "./components/MsalAccountSetter";
+import { EventType } from "@azure/msal-browser";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -66,6 +62,35 @@ const navItems : NavItem[] = [
 export const msalInstance = new PublicClientApplication(msalConfig);
 
 export default function App() {
+
+  const [isMsalInitialized, setIsMsalInitialized] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    msalInstance.initialize().then(() => {
+      setIsMsalInitialized(true);
+       const callbackId = msalInstance.addEventCallback((event) => {
+        
+        if (event.eventType === EventType.LOGIN_SUCCESS) {
+          
+          navigate(getRoute(RouteName.Home)); 
+        }
+      });
+  
+      return () => {
+        if (callbackId) {
+          msalInstance.removeEventCallback(callbackId);
+        }
+      };
+    }).catch((error) => {
+      console.error("MSAL Initialization failed:", error);
+    });
+  }, []);
+
+  if (!isMsalInitialized) {
+    return null; 
+  }
+  
   return (
     <MsalProvider instance={msalInstance}>
       <MsalAccountSetter />

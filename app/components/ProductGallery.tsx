@@ -9,10 +9,10 @@ type ProductGalleryProps = {
   products: Product[] | null,
   caption : string,
   subcaption: string,
-  errorMessage: string
+  errorMessage?: string
 };
 
-const ProductGallery = ({ products, caption, subcaption, errorMessage}: ProductGalleryProps) => {
+const ProductGallery = ({ products, caption, subcaption, errorMessage="unable to load Products"}: ProductGalleryProps) => {
   // TODO error handling for data fetching with react router
   const [error, setError] = useState<string>("");
   return (
