@@ -14,7 +14,8 @@ import { LogLevel } from "@azure/msal-browser";
 export const apiConfig = {
     auth: {
         clientId: "d54438c7-43a4-4764-b475-defc8e0e5435",
-        readScope: "Read"
+        readScope: "Read",
+        writeScope: "Write"
     }
 }
 

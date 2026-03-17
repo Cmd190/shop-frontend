@@ -44,7 +44,7 @@ const SearchOptionsPanel = (props: SearchOptionsPanelProps): ReactElement => {
       <aside className="w-full md:w-1/4 bg-white dark:bg-white shadow-md p-4 rounded-xl">
         <div className="mb-6 ml-2">
           <h3 className="font-medium mb-10 text-gray-800">Price (€):</h3>
-          <Box sx={{ width: 300 }}>
+          <Box sx={{ width: '100%' }}>
             <Slider
               getAriaLabel={() => "Price range"}
               value={price}

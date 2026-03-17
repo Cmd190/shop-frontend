@@ -56,11 +56,10 @@ const fetchWithAuth = async(url:string) : Promise<any> => {
     }
     const clientId = apiConfig.auth.clientId;
     const response = await msalInstance.acquireTokenSilent({
-        ...loginRequest,
         account: account,
         scopes: [
-                  `api://${clientId}/${apiConfig.auth.readScope}`
-                 
+                  `api://${clientId}/${apiConfig.auth.readScope}`,
+                  `api://${clientId}/${apiConfig.auth.writeScope}`
         ]
     });
 
